@@ -2,7 +2,7 @@
 //  MPKArrayDataSource.m
 //
 //  Created by Mike Rudoy on 07.08.15.
-//  тру копирайты 
+//  Copyright (c) 2015 MPK. All rights reserved.
 //
 
 #import "MPKArrayDataSource.h"
@@ -13,7 +13,6 @@
 @property (nonatomic, copy) NSString *cellIdentifier;
 @property (nonatomic, copy) TableViewCellConfigureBlock configureCellBlock;
 @property (nonatomic, strong) UILabel *emptyItemsLabel;
-@property (nonatomic, strong) UIView *nonEmptyBg;
 
 @end
 
@@ -29,7 +28,10 @@
      cellIdentifier:(NSString *)aCellIdentifier
  configureCellBlock:(TableViewCellConfigureBlock)aConfigureCellBlock
 {
-    return [self initWithItems:anItems cellIdentifier:aCellIdentifier configureCellBlock:aConfigureCellBlock emptyItemsLabel:nil];
+    return [self initWithItems:anItems
+                cellIdentifier:aCellIdentifier
+            configureCellBlock:aConfigureCellBlock
+               emptyItemsLabel:nil];
 }
 
 - (id)initWithItems:(NSArray *)anItems
@@ -61,10 +63,6 @@
         tableView.backgroundView = self.emptyItemsLabel;
         tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         return 0;
-    } else {
-        if (self.nonEmptyBg) {
-            tableView.backgroundView = _nonEmptyBg;
-        }
     }
     return 1;
 }
@@ -74,7 +72,8 @@
     return self.items.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:self.cellIdentifier
                                                             forIndexPath:indexPath];
